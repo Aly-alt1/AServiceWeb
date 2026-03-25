@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="WebUsuarios.asmx.cs" Class="webExamen.Services.WebUsuarios" %>
+﻿<%@ WebService Language="C#" CodeBehind="WebUsuarios.asmx.cs" Class="WebEjem.Web.WebUsuarios" %>

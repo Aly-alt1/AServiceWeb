@@ -2,20 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using webExamen.Data;
 
-namespace webExamen.Models
+namespace WebEjem.Models
 {
-    public partial class Usuarios
+    public class Usuarios
     {
-        public int IdUsuario { get; set; }
+        public int idUser { get; set; }
         public string username { get; set; }
         public string password { get; set; }
-
         public bool suspendido { get; set; }
-
-        public List<UsuarioRol> UsuariosRoles { get; set; }
-
-         
+        public List<UsuarioRol> UsuarioRoles { get; set; }
     }
 }

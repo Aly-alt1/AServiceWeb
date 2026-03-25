@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-using webExamen.Data;
-using webExamen.Models;
+using WebEjem.Data;
+using WebEjem.Models;
 
-namespace webExamen.Services
+namespace WebEjem.Web
 {
     /// <summary>
     /// Descripción breve de WebUsuarios
@@ -18,6 +18,7 @@ namespace webExamen.Services
     // [System.Web.Script.Services.ScriptService]
     public class WebUsuarios : System.Web.Services.WebService
     {
+
         /*
         [WebMethod]
 
@@ -84,23 +85,23 @@ namespace webExamen.Services
 
         [WebMethod]
         public bool Crear(Usuarios u)
-        { 
+        {
             usuarios usuarios = new usuarios();
             usuarios.username = u.username.Trim().ToLower();
             usuarios.password = u.password.Trim().ToLower();
             usuarios.suspendido = u.suspendido;
 
-            List<UsuarioRoles> userRoles = new List<UsuarioRoles>();
+            List<usuarioRoles> userRoles = new List<usuarioRoles>();
 
-            foreach (var userR in u.UsuariosRoles)
+            foreach (var userR in u.UsuarioRoles)
             {
-                userRoles.Add(new UsuarioRoles
+                userRoles.Add(new usuarioRoles
                 {
-                  //idUser = userR.usuarios.IdUsuario,
-                  idRoles = userR.rol.IdRoles
+                    //idUser = userR.usuarios.IdUsuario,
+                    idRoles = userR.rol.IdRoles
                 });
             }
-            usuarios.UsuarioRoles = userRoles;
+            usuarios.usuarioRoles = userRoles;
             Services.ServicesUsuarios servicesUsuarios = new Services.ServicesUsuarios();
             return servicesUsuarios.Crear(usuarios);
         }
@@ -119,17 +120,17 @@ namespace webExamen.Services
 
             //se recorre toda la lista para cambiar los valores al rol y usuario
 
-            List<UsuarioRoles> userRoles = new List<UsuarioRoles>(); 
+            List<usuarioRoles> userRoles = new List<usuarioRoles>();
 
-            foreach (var userR in user.UsuariosRoles)
+            foreach (var userR in user.UsuarioRoles)
             {
-                userRoles.Add(new UsuarioRoles
+                userRoles.Add(new usuarioRoles
                 {
-                    idUser = userR.usuarios.IdUsuario,
+                    idUser = userR.usuarios.idUser,
                     idRoles = userR.rol.IdRoles
                 });
             }
-            usuario.UsuarioRoles = userRoles;
+            usuario.usuarioRoles = userRoles;
             Services.ServicesUsuarios servicesUsuarios = new Services.ServicesUsuarios();
             return servicesUsuarios.Login(user);
         }
@@ -147,13 +148,12 @@ namespace webExamen.Services
             Services.ServicesUsuarios servicesUsuarios = new Services.ServicesUsuarios();
             return servicesUsuarios.GetUsuarioByName(username);
         }
-
+        
         [WebMethod]
-        public List<UsuarioRol> GetAllUsuariosRoles()
+        public List<UsuarioConRoles> GetAllUsuariosRoles()
         {
             Services.ServicesUsuarios servicesUsuarios = new Services.ServicesUsuarios();
-            return servicesUsuarios.GetUsuarioRoles();
+            return servicesUsuarios.GetUsuariosRoles();
         }
-
     }
 }

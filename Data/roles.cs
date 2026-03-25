@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace webExamen.Data
+namespace WebEjem.Data
 {
     using System;
     using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace webExamen.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public roles()
         {
-            this.UsuarioRoles = new HashSet<UsuarioRoles>();
+            this.usuarioRoles = new HashSet<usuarioRoles>();
         }
     
         public int idRoles { get; set; }
@@ -25,6 +25,6 @@ namespace webExamen.Data
         public string strDescripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UsuarioRoles> UsuarioRoles { get; set; }
+        public virtual ICollection<usuarioRoles> usuarioRoles { get; set; }
     }
 }

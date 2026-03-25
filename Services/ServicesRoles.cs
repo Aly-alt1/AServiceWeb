@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using webExamen.Data;
+using WebEjem.Data;
 
-namespace webExamen.Services
+namespace WebEjem.Services
 {
     public class ServicesRoles
     {
-        productosDbEntities conexion = null;
-
-        public ServicesRoles()
+        ejemploDbEntities conexion = null;
+      public ServicesRoles()
         {
-            conexion = new productosDbEntities();
+            conexion = new ejemploDbEntities();
         }
 
 
         public bool Create(roles roles)
-        { 
+        {
             bool result = false;
             var transaction = conexion.Database.BeginTransaction();
             try
@@ -28,8 +27,8 @@ namespace webExamen.Services
                 result = true;
                 return result;
             }
-            
-            catch(Exception ex)
+
+            catch (Exception ex)
             {
                 transaction.Rollback();
                 result = false;
@@ -56,7 +55,7 @@ namespace webExamen.Services
                         orderby r.strValor descending
                         select r;
             //se agregan a la lista ordenada
-            foreach (var item in query) 
+            foreach (var item in query)
             {
                 listaRoles.Add(item);
             }

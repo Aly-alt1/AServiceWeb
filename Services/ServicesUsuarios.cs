@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using webExamen.Data;
-using webExamen.Models;
-using usuarios = webExamen.Data.usuarios;
+using WebEjem.Data;
+using WebEjem.Models;
 
-namespace webExamen.Services
+namespace WebEjem.Services
 {
     public class ServicesUsuarios
     {
-        productosDbEntities conexion = null;
-        public ServicesUsuarios()
+        ejemploDbEntities conexion = null;
+
+    
+
+    public ServicesUsuarios()
         {
-            conexion = new productosDbEntities();
+            conexion = new ejemploDbEntities();
         }
 
         /*
@@ -42,7 +44,7 @@ namespace webExamen.Services
         }
 
         */
-        public bool Crear(webExamen.Data.usuarios usuarios)
+        public bool Crear(WebEjem.Data.usuarios usuarios)
         {
             bool result = false;
             var transaccion = conexion.Database.BeginTransaction();
@@ -51,9 +53,9 @@ namespace webExamen.Services
                 if (usuarios != null)
                 {
                     conexion.usuarios.Add(usuarios);
-                    foreach (var u in usuarios.UsuarioRoles)
+                    foreach (var u in usuarios.usuarioRoles)
                     {
-                        conexion.UsuarioRoles.Add(u);
+                        conexion.usuarioRoles.Add(u);
                     }
                     conexion.SaveChanges();
                     transaccion.Commit();
@@ -62,7 +64,7 @@ namespace webExamen.Services
                 return result;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 transaccion.Rollback();
                 return result;
@@ -137,11 +139,11 @@ namespace webExamen.Services
 
         }
         */
-        public webExamen.Data.usuarios Login(Usuarios usuario)
+        public WebEjem.Data.usuarios Login(Usuarios usuario)
         {
             try
             {
-                webExamen.Data.usuarios user = conexion.usuarios.First(p => p.username.Equals(usuario.username)
+                WebEjem.Data.usuarios user = conexion.usuarios.First(p => p.username.Equals(usuario.username)
                     && p.password.Equals(usuario.password) && p.suspendido == false);
 
                 if (user != null)
@@ -150,19 +152,19 @@ namespace webExamen.Services
                 }
                 else
                 {
-                    webExamen.Data.usuarios usuarioNull = new webExamen.Data.usuarios { username = string.Empty, idUser = 0 };
+                    WebEjem.Data.usuarios usuarioNull = new WebEjem.Data.usuarios { username = string.Empty, idUser = 0 };
                     return usuarioNull;
                 }
             }
             catch (Exception ex)
             {
 
-                webExamen.Data.usuarios usuarioNull = new webExamen.Data.usuarios { username = string.Empty, idUser = 0 };
+                WebEjem.Data.usuarios usuarioNull = new WebEjem.Data.usuarios { username = string.Empty, idUser = 0 };
                 return usuarioNull;
             }
         }
 
-        public bool ValidarSuspension(webExamen.Data.usuarios usuario)
+        public bool ValidarSuspension(WebEjem.Data.usuarios usuario)
         {
             bool result = false;
             try
@@ -179,13 +181,13 @@ namespace webExamen.Services
         }
 
 
-        public bool ActivarSuspencion(webExamen.Data.usuarios usuario)
+        public bool ActivarSuspencion(WebEjem.Data.usuarios usuario)
         {
             bool result = false;
             var transaccion = conexion.Database.BeginTransaction();
             try
             {
-                webExamen.Data.usuarios user = conexion.usuarios.First(p => p.idUser == usuario.idUser);
+                WebEjem.Data.usuarios user = conexion.usuarios.First(p => p.idUser == usuario.idUser);
                 if (user != null)
                 {
                     user.suspendido = false;
@@ -202,7 +204,7 @@ namespace webExamen.Services
             }
 
         }
-        public webExamen.Data.usuarios GetUsuario(webExamen.Data.usuarios usuarios)
+        public WebEjem.Data.usuarios GetUsuario(WebEjem.Data.usuarios usuarios)
         {
             try
             {
@@ -212,12 +214,12 @@ namespace webExamen.Services
             }
             catch (Exception ex)
             {
-                webExamen.Data.usuarios usuario = new webExamen.Data.usuarios { username = string.Empty, idUser = 0 };
+                WebEjem.Data.usuarios usuario = new WebEjem.Data.usuarios { username = string.Empty, idUser = 0 };
                 return usuario;
             }
         }
 
-        public bool EditarUsuario(webExamen.Data.usuarios usuario)
+        public bool EditarUsuario(WebEjem.Data.usuarios usuario)
         {
             bool result = false;
             var transaccion = conexion.Database.BeginTransaction();
@@ -228,7 +230,7 @@ namespace webExamen.Services
                 {
                     return result;
                 }
-                webExamen.Data.usuarios user = conexion.usuarios.FirstOrDefault(p => p.idUser == usuario.idUser);
+                WebEjem.Data.usuarios user = conexion.usuarios.FirstOrDefault(p => p.idUser == usuario.idUser);
                 if (user == null)
                 {
                     return result;
@@ -247,7 +249,7 @@ namespace webExamen.Services
             }
         }
 
-        public List<webExamen.Data.usuarios> GetAllUsuarios()
+        public List<WebEjem.Data.usuarios> GetAllUsuarios()
         {
             try
             {
@@ -255,14 +257,14 @@ namespace webExamen.Services
             }
             catch (Exception ex)
             {
-                return new List<webExamen.Data.usuarios>();
+                return new List<WebEjem.Data.usuarios>();
             }
 
-            
+
         }
 
-      
-        public List<webExamen.Data.usuarios> GetSuspendidosSp()
+
+        public List<WebEjem.Data.usuarios> GetSuspendidosSp()
         {
             try
             {
@@ -273,19 +275,19 @@ namespace webExamen.Services
             }
             catch (Exception ex)
             {
-                return new List<webExamen.Data.usuarios>();
+                return new List<WebEjem.Data.usuarios>();
             }
         }
         /*este metodo se encarga de consultar al usuario utilizando la clausula like de sql */
-        public webExamen.Data.usuarios GetUsuarioByName(string username)
+        public WebEjem.Data.usuarios GetUsuarioByName(string username)
         {
             try
             {
-                return conexion.usuarios.Where(p => p.username.StartsWith(username) && p.suspendido==false).FirstOrDefault();
+                return conexion.usuarios.Where(p => p.username.StartsWith(username) && p.suspendido == false).FirstOrDefault();
             }
             catch (Exception ex)
             {
-                webExamen.Data.usuarios usuario = new webExamen.Data.usuarios { username = string.Empty, idUser = 0 };
+                WebEjem.Data.usuarios usuario = new WebEjem.Data.usuarios { username = string.Empty, idUser = 0 };
                 return usuario;
             }
         }
@@ -296,7 +298,7 @@ namespace webExamen.Services
             {
                 return conexion.usuarios.Max(p => p.idUser);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return 0;
             }
@@ -316,7 +318,7 @@ namespace webExamen.Services
         }
 
         //es igual al de get usuarios by name pero este devuelve una lista de usuarios que cumplen con la condicion de like
-        public List <webExamen.Data.usuarios> GetUsuariosByLike(string letra)
+        public List<WebEjem.Data.usuarios> GetUsuariosByLike(string letra)
         {
             var query = from u in conexion.usuarios
                         where u.username.StartsWith(letra) && u.suspendido == false
@@ -347,51 +349,53 @@ namespace webExamen.Services
 
             //promedio
             var query = (from u in conexion.usuarios
-                        where u.username.StartsWith("a") && u.suspendido == false
-                        select u).Average(p=> p.idUser);
+                         where u.username.StartsWith("a") && u.suspendido == false
+                         select u).Average(p => p.idUser);
             double result = double.Parse(query.ToString());
             return result;
 
-                        /*where u.suspendido == true
-                        orderby u ascending
-                        select new { Nombre = u.username, Status = u.suspendido};
+            /*where u.suspendido == true
+            orderby u ascending
+            select new { Nombre = u.username, Status = u.suspendido};
 
-            var result = query.GroupBy(p => p.Nombre).ToList();
-            List<UsuarioSimple> user = new List<UsuarioSimple>();
-            foreach (var item in result)
-            {
-                UsuarioSimple usuario = new UsuarioSimple();
-                usuario.Nombre = item.Key;
-            }
-                        */
+var result = query.GroupBy(p => p.Nombre).ToList();
+List<UsuarioSimple> user = new List<UsuarioSimple>();
+foreach (var item in result)
+{
+    UsuarioSimple usuario = new UsuarioSimple();
+    usuario.Nombre = item.Key;
+}
+            */
         }
 
-
-        public List<UsuarioConRoles> GetUsuarioRoles()
+        
+        public List<UsuarioConRoles> GetUsuariosRoles()
         {
             try
             {
                 var consulta = from u in conexion.usuarios
-                               join ur in conexion.UsuarioRoles
+                               join ur in conexion.usuarioRoles
                                on u.idUser equals ur.idUser
                                join r in conexion.roles
                                on ur.idRoles equals r.idRoles
-                               select new
+                               select new UsuarioConRoles
                                {
-                                   idUsuario = u.idUser,
-                                   nombre = u.username.Trim().ToLower(),
-                                   idRol = r.idRoles,
-                                   nombreRol = r.strValor.Trim().ToLower(),
-                                   descripcion = r.strDescripcion.Trim().ToLower(),
+                                   IdUsuario = u.idUser,
+                                   Nombre = u.username.Trim().ToLower(),
+                                   IdRol = r.idRoles,
+                                   NombreRol = r.strValor.Trim().ToLower(),
+                                   Descripcion = r.strDescripcion.Trim().ToLower(),
                                };
+
+
                 return consulta.ToList();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
+                return null;
             }
         }
 
-       
+
     }
 }

@@ -13,28 +13,30 @@ namespace WebEjem.Data
     using System.Collections.Generic;
     using System.Xml.Serialization;
 
-    public partial class usuarios
+    public partial class perfilUsuario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public usuarios()
+        public perfilUsuario()
         {
-            this.perfilUsuario = new HashSet<perfilUsuario>();
-            this.usuarioRoles = new HashSet<usuarioRoles>();
+            this.direcciones = new HashSet<direcciones>();
+            this.telefonos = new HashSet<telefonos>();
         }
     
-        public int idUser { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public Nullable<bool> suspendido { get; set; }
+        public int idPerfilUsuario { get; set; }
+        public string nombre { get; set; }
+        public string apellidoPaterno { get; set; }
+        public string apellidoMaterno { get; set; }
+        public Nullable<System.DateTime> fechaNacimiento { get; set; }
+        public string rfc { get; set; }
+        public Nullable<int> idUsuario { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [XmlIgnore]
 
-        public virtual ICollection<perfilUsuario> perfilUsuario { get; set; }
+        public virtual ICollection<direcciones> direcciones { get; set; }
+        public virtual usuarios usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [XmlIgnore]
-
-        public virtual ICollection<usuarioRoles> usuarioRoles { get; set; }
-
+        public virtual ICollection<telefonos> telefonos { get; set; }
     }
 }

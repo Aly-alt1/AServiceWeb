@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-using webExamen.Data;
-using webExamen.Models;
+using WebEjem.Data;
+using WebEjem.Models;
 
-namespace webExamen.Web
+namespace WebEjem.Web
 {
     /// <summary>
     /// Descripción breve de WebRoles
@@ -18,7 +18,7 @@ namespace webExamen.Web
     // [System.Web.Script.Services.ScriptService]
     public class WebRoles : System.Web.Services.WebService
     {
-        
+
         [WebMethod]
         public bool Craete(Rol rol)
         {
